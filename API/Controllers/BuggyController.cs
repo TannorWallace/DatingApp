@@ -23,7 +23,7 @@ namespace API.Controllers
         [HttpGet("auth")]
         public ActionResult<string> GetSecret()
         {
-            return "Blocked By Inquisition";
+            return "You Are Unsanctioned...";
         }
 
     

@@ -39,7 +39,7 @@ export class ErrorInterceptor implements HttpInterceptor {
             case 401:
               //this.toastr.error(error.error , error.status);
               //this.toastr.error(error.statusText, error.status);
-               this.toastr.error(error.statusText === 'OK' ? 'Blocked By Inquisition' : error.statusText, error.status);
+               this.toastr.error(error.statusText === 'OK' ? 'You are Unsanctioned...' : error.statusText, error.status);
               break;
             case 404:
               this.router.navigateByUrl('/not-found');
