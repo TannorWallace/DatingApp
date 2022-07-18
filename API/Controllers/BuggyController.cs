@@ -23,7 +23,7 @@ namespace API.Controllers
         [HttpGet("auth")]
         public ActionResult<string> GetSecret()
         {
-            return "You Are Unsanctioned...";
+            return "You Are not authorized";
         }
 
     
@@ -55,7 +55,7 @@ namespace API.Controllers
         [HttpGet("bad-request")]
         public ActionResult<string> GetBadRequest()
         {
-            return BadRequest("Machine Spirit: Please restate your query...");
+            return BadRequest("Bad Request");
         }
 
     }
