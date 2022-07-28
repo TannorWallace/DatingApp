@@ -14,7 +14,7 @@ namespace API.Data
         }
         public DbSet<AppUser> Users{ get; set; }//Name Of the Table
         public DbSet<UserLike> Likes { get; set; }//Table Name for likes
-
+        public DbSet<Message> Messages { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -33,6 +33,16 @@ namespace API.Data
                 .WithMany(l => l.LikedByUsers)
                 .HasForeignKey(s => s.LikedUserId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Message>()
+                .HasOne(u => u.Recipient)
+                .WithMany(m => m.MessageReceived)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Message>()
+                .HasOne(u => u.Sender)
+                .WithMany(m => m.MessageSent)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

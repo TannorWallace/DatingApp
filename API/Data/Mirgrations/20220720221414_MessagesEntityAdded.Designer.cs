@@ -3,14 +3,16 @@ using System;
 using API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace API.Data.Mirgrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20220720221414_MessagesEntityAdded")]
+    partial class MessagesEntityAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,6 +80,9 @@ namespace API.Data.Mirgrations
                     b.Property<DateTime>("MessageSent")
                         .HasColumnType("TEXT");
 
+                    b.Property<int?>("ReciepientId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<bool>("RecipientDeleted")
                         .HasColumnType("INTEGER");
 
@@ -98,7 +103,7 @@ namespace API.Data.Mirgrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RecipientId");
+                    b.HasIndex("ReciepientId");
 
                     b.HasIndex("SenderId");
 
@@ -147,11 +152,10 @@ namespace API.Data.Mirgrations
 
             modelBuilder.Entity("API.Entities.Message", b =>
                 {
-                    b.HasOne("API.Entities.AppUser", "Recipient")
+                    b.HasOne("API.Entities.AppUser", "Reciepient")
                         .WithMany("MessageReceived")
-                        .HasForeignKey("RecipientId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("ReciepientId")
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("API.Entities.AppUser", "Sender")
                         .WithMany("MessageSent")
@@ -159,7 +163,7 @@ namespace API.Data.Mirgrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Recipient");
+                    b.Navigation("Reciepient");
 
                     b.Navigation("Sender");
                 });
